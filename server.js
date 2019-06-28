@@ -18,12 +18,13 @@ var connection = mysql.createConnection({
 });
 
 // connect to the mysql server and sql database
-connection.connect(function(err) {
-  if (err) throw err;
-  console.log("connected as id " + connection.threadId);
-  // run the start function after the connection is made to prompt the user
-  start();
-});
+// connection.connect(function(err) {
+//   if (err) throw err;
+//   console.log("connected as id " + connection.threadId);
+//   // run the start function after the connection is made to prompt the user
+//   start();
+// });
+start();
 
 // function which prompts the user for what action they should take
 function start() {
@@ -38,9 +39,45 @@ function start() {
       // based on their answer, either call the bid or the post functions
       if (answer.postOrBid.toUpperCase() === "POST") {
         //CALL POST FUNCTION HERE
+        console.log("test")
+        inquirer.prompt([
+            {
+                type:"input",
+                name: "newItem",
+                message: "Which item would you like to add?"
+            },
+            {
+                type:"input",
+                name: "startingBid",
+                message: "What's the starting bid"
+            },
+        ]).then(function(add){
+            console.log("Item added")
+            connection.connect(function(err) {
+                if (err) throw err;
+                console.log("connected as id " + connection.threadId + "\n");
+                post();
+              });
+              function post() {
+                var query = connection.query(
+                  "INSERT INTO auctions SET ?",
+                  {
+                    item_name: add.newItem,
+                    starting_bid: add.startingBid,
+                  },
+                  function(err, res) {
+                    if (err) throw err;
+                    console.log(res.affectedRows + " item inserted!\n");
+                  }
+                )
+                console.log(query.sql);
+                connection.end();
+            };
+        })
       }
       else {
        // CALL BID AUCTION HERE
       }
     });
 }
+
