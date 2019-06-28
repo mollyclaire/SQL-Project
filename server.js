@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
   database: "greatbay_DB"
 });
 
-/ connect to the mysql server and sql database
+// connect to the mysql server and sql database
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
