@@ -14,10 +14,10 @@ var connection = mysql.createConnection({
 
   // Your password
   password: process.env.db_password,
-  database: "greatbay_db"
+  database: "greatbay_DB"
 });
 
-// connect to the mysql server and sql database
+/ connect to the mysql server and sql database
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
@@ -44,4 +44,3 @@ function start() {
       }
     });
 }
-
