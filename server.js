@@ -37,10 +37,10 @@ function start() {
     .then(function(answer) {
       // based on their answer, either call the bid or the post functions
       if (answer.postOrBid.toUpperCase() === "POST") {
-        //CALL POST FUNCTION
+        //CALL POST FUNCTION HERE
       }
       else {
-       // CALL BID AUCTION
+       // CALL BID AUCTION HERE
       }
     });
 }
